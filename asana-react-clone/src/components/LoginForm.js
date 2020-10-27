@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Button, Grid, Paper } from "@material-ui/core";
+import { TextField, Button, Grid, Box } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 
 import { NavLink } from 'react-router-dom';
@@ -44,45 +44,53 @@ const LoginForm = (props) => {
     <main className={classes.root}>
       <h1>Log In</h1>
       <form onSubmit={handleSubmit}>
-        <Paper elevation={20} className={classes.paper} variant="outlined" >
-          <Grid container spacing={2} direction="column" justify="center" alignItems="center">
-            <Grid item>
-              <div>
-                <h1>asana</h1>
-              </div>
-            </Grid>
-            <Grid item>
+        <Grid container justify="center">
+          <Box
+            boxShadow={3}
+            bgcolor="background.paper"
+            m={1}
+            p={1}
+            style={{ width: '20rem', height: 'auto', padding: '2rem' }}
+          >
+            <Grid container spacing={2} direction="column" justify="center" alignItems="center">
+              <Grid item>
+                <div>
+                  <h1>asana</h1>
+                </div>
+              </Grid>
+              <Grid item>
+                {/* <br /> */}
+                <TextField id="outlined-basic" label="Email address" variant="outlined"
+                  type='text'
+                  placeholder='Email'
+                  value={email}
+                  onChange={updateProperty(setEmail)}
+                  required
+                  />
+              </Grid>
               {/* <br /> */}
-              <TextField id="outlined-basic" label="Email address" variant="outlined"
-                type='text'
-                placeholder='Email'
-                value={email}
-                onChange={updateProperty(setEmail)}
-                required
+              <Grid item>
+                <TextField id="outlined-basic" label="Password" variant="outlined"
+                  type='password'
+                  placeholder='Password'
+                  value={password}
+                  onChange={updateProperty(setPassword)}
+                  required
                 />
+              </Grid>
+              <Grid item>
+                <Button variant="contained" type='submit'>Login</Button>
+              </Grid>
+              <Grid item>
+                <p> Don't have an account? '
+                  <NavLink exact to='/signup' className='is-active'>
+                    Sign Up
+                  </NavLink>
+                </p>
+              </Grid>
             </Grid>
-            {/* <br /> */}
-            <Grid item>
-              <TextField id="outlined-basic" label="Password" variant="outlined"
-                type='password'
-                placeholder='Password'
-                value={password}
-                onChange={updateProperty(setPassword)}
-                required
-              />
-            </Grid>
-            <Grid item>
-              <Button variant="contained" type='submit'>Login</Button>
-            </Grid>
-            <Grid item>
-              <p> Don't have an account? '
-                <NavLink exact to='/signup' className='is-active'>
-                  Sign Up
-                </NavLink>
-              </p>
-            </Grid>
-          </Grid>
-        </Paper>
+          </Box>
+        </Grid>
       </form>
     </main>
   );

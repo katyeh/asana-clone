@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Button, Grid, Paper, Box } from "@material-ui/core";
+import { TextField, Button, Grid, Box } from "@material-ui/core";
 
 import { useDispatch } from 'react-redux';
 import { signUp } from '../store/authentication';
@@ -84,12 +84,12 @@ const SignUpForm = () => {
                   <Button variant="contained" type='submit'>Sign Up</Button>
                 </Grid>
                 <Grid item>
-              <p> Already have an account? '
-                <NavLink exact to='/login' className='is-active'>
-                  Log In
-                </NavLink>
-              </p>
-            </Grid>
+                  <p> Already have an account? '
+                  <NavLink exact to='/login' className='is-active'>
+                    Log In
+                  </NavLink>
+                  </p>
+                </Grid>
               </Grid>
             </Box>
           </Grid>
