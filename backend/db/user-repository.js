@@ -1,16 +1,10 @@
 const { User } = require('./models');
 
 class NullUser {
-  isValid() {
-    return false;
-  }
+  isValid() { return false; }
   setPassword() {}
-  isValidPassword() {
-    return false;
-  }
-  toSafeObject() {
-    return {};
-  }
+  isValidPassword() { return false; }
+  toSafeObject() { return {}; }
 }
 
 async function create(details) {

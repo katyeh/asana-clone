@@ -1,15 +1,26 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
+const { check, validationResult } = require('express-validator');
 
 const UserRepository = require('../../db/user-repository');
 const { authenticated, generateToken } = require('./security-utils');
-const { validateEmailAndPassword, validationResult } = require('../../validations');
 
 const router = express.Router();
 
+const email =
+  check('email')
+    .isEmail()
+    .withMessage('Please provide a valid email address')
+    .normalizeEmail();
+
+const password =
+  check('password')
+    .not().isEmpty()
+    .withMessage('Please provide a password');
+
 router.put(
   '/',
-  validateEmailAndPassword,
+  [email, password],
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

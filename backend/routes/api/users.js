@@ -8,19 +8,20 @@ const { authenticated, generateToken } = require('./security-utils');
 
 const router = express.Router();
 
-// router.get(
-//   '/',
-//   validateUser,
-//   handleValidationErrors,
-//   asyncHandler(async (req, res) => {
-//     const users = await User.findAll();
-//     res.json({ users });
-//   })
-// );
+router.get(
+  '/',
+  validateUser,
+  handleValidationErrors,
+  asyncHandler(async (req, res) => {
+    const users = await User.findAll();
+    res.json({ users });
+  })
+);
 
 router.post(
   '/',
   validateUser,
+  validateEmailAndPassword,
   handleValidationErrors,
   asyncHandler(async (req, res, next) => {
     let { fullName, email, password, picUrl } = req.body;
@@ -68,11 +69,11 @@ router.get(
       where: { id: req.params.id },
     });
 
-    if (user) {
+    // if (user) {
       res.json({ user: { fullName: user.fullName, email: user.email, picUrl: user.picUrl, id: user.id } });
-    } else {
-      next(userNotFoundError(req.params.id));
-    }
+    // } else {
+      // next(userNotFoundError(req.params.id));
+    // }
   }));
 
   router.delete(

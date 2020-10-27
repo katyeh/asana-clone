@@ -1,13 +1,19 @@
 'use strict';
 
+const bcrypt = require('bcryptjs');
+
+function createPassword() {
+  return bcrypt.hashSync('password');
+}
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Users', [
       {
         fullName: "Demo User",
-        email: "demo@user.com",
+        email: "demo@example.com",
         picUrl: "https://media.fromthegrapevine.com/assets/images/2017/1/jeff-bridges-dude.jpg.839x0_q71_crop-scale.jpg",
-        hashedPassword: "$2b$10$lYAdho1ns2ChPIAzLfv/depkJjlCXbMy9a62VmiolZFb/TtibcudS",
+        hashedPassword: createPassword(),
         createdAt: new Date(),
         updatedAt: new Date()
       },
