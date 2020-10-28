@@ -1,11 +1,11 @@
 const express = require('express');
 const { checkSchema } = require('express-validator');
-
-const { User } = require('../../db/models');
+const ProjectRepository = require('../../db/project-repository');
+const { User, Project } = require('../../db/models');
 const { asyncHandler, hashPassword } = require('../../utils');
 const { handleValidationErrors, validateUser, validationResult, userNotFoundError, validateEmailAndPassword } = require('../../validations');
 const { authenticated, generateToken } = require('./security-utils');
-
+console.log(ProjectRepository);
 const router = express.Router();
 
 router.get(
@@ -112,5 +112,15 @@ router.get(
     const token = getUserToken(user);
     res.json({token, user: { id: user.id, picUrl: user.picUrl, fullName: user.fullName, username: user.username } });
 }));
+
+//TODO: Route for getting all projects for one user.
+router.get(
+  '/:id/projects',
+  // authenticated,
+  asyncHandler(async function(req, res) {
+    const projects = await ProjectRepository.list(req.params.id);
+    res.json(projects);
+  })
+);
 
 module.exports = router;

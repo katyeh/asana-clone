@@ -1,6 +1,7 @@
 'use strict';
 
 const bcrypt = require('bcryptjs');
+const userproject = require('./userproject');
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
@@ -33,6 +34,14 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Task, { as: "creator", foreignKey: "creatorId" })
     User.hasMany(models.Membership, { foreignKey: "userId" })
     User.hasMany(models.Comment, { foreignKey: "userId" })
+
+    const columnMapping = {
+      through: 'UserProject',
+      foreignKey: 'userId',
+      other: 'projectId'
+    }
+
+    User.belongsToMany(models.Project, columnMapping);
   };
 
   User.prototype.isValid = () => true;

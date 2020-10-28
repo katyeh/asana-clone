@@ -10,28 +10,18 @@ const { authenticated, generateToken } = require('./security-utils');
 
 const router = express.Router();
 
-//TODO: Route for getting all projects for one user.
 router.get(
-  '/:id',
-  // authenticated,
-  asyncHandler(async function(req, res) {
-    const project = await ProjectRepository.list(req.params.id);
-    res.json(project)
+  '/:id(\\d+)',
+  authenticated,
+  asyncHandler(async function (req, res, next) {
+    const project = await ProjectRepository.one(req.params.id);
+    if (project) {
+      res.json(project);
+    } else {
+      next(projectNotFoundError);
+    }
   })
 );
-
-// router.get(
-//   '/:id(\\d+)',
-//   // authenticated,
-//   asyncHandler(async function (req, res, next) {
-//     const project = await ProjectRepository.one(req.params.id);
-//    /*  if (project) { */
-//       res.json(project);
-//     // } else {
-//     //   next(projectNotFoundError);
-//     // }
-//   })
-// );
 
 router.post(
   '/',
@@ -39,13 +29,8 @@ router.post(
   validateProject,
   handleValidationErrors,
   asyncHandler(async function (req, res, next) {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return next({ status: 422, errors: errors.array() });
-    }
-
-    const id = await ProjectRepository.create(req.body, req.user);
-    // return res.redirect(`${req.baseUrl}/${id}`);
+    const id = await ProjectRepository.create(req.body, req.user.id);
+      return res.redirect(`${req.baseUrl}/${id}`)
   }));
 
 router.put(
@@ -74,6 +59,7 @@ router.delete(
   asyncHandler(async function (req, res, next) {
     const projectId = req.params.id;
     const project = await Project.findByPk(projectId);
+
     if (req.user.id !== project.creatorId) {
       const err = new Error("Unauthorized");
       err.status = 401;
@@ -81,9 +67,10 @@ router.delete(
       err.title = "Unauthorized";
       throw err;
     }
+
     if (project) {
       await project.destroy();
-      res.json({ message: `Deleted the project with id of ${id}`});
+      res.json({ message: `Deleted the project with id of ${projectId}`});
     } else {
       next(projectNotFoundError(projectId));
     }

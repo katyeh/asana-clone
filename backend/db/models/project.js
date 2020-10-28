@@ -1,4 +1,7 @@
 'use strict';
+
+const userproject = require("./userproject");
+
 module.exports = (sequelize, DataTypes) => {
   const Project = sequelize.define('Project', {
     name: {
@@ -28,7 +31,14 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "projectId",
       onDelete: "CASCADE",
       hooks: true,
-    })
+    });
+    const columnMapping = {
+      through: 'UserProject', // model name
+      foreignKey: "projectId", // 
+      other: "userId"
+    }
+
+    Project.belongsToMany(models.User, columnMapping);
   };
   return Project;
 };
