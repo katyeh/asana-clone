@@ -13,7 +13,7 @@ module.exports = {
       },
       {
         name:"Prep for vacation",
-        creatorId: "2",
+        creatorId: "1",
         teamId: "2",
         createdAt: new Date(),
         updatedAt: new Date()

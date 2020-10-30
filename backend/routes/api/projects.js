@@ -2,10 +2,11 @@ const express = require('express');
 const { checkSchema } = require('express-validator');
 
 const ProjectRepository = require("../../db/project-repository");
+const TaskRepository = require("../../db/task-repository");
 
 const { Project } = require('../../db/models');
 const { asyncHandler, hashPassword } = require('../../utils');
-const { handleValidationErrors, validateProject, validationResult, projectNotFoundError, validateEmailAndPassword } = require('../../validations');
+const { handleValidationErrors, validateProject, validateTask, projectNotFoundError, validateEmailAndPassword } = require('../../validations');
 const { authenticated, generateToken } = require('./security-utils');
 
 const router = express.Router();
@@ -77,5 +78,25 @@ router.delete(
     res.status(204).end();
   })
 )
+
+// Get all tasks for a project
+router.get(
+  '/:id/tasks',
+  // authenticated,
+  asyncHandler(async function(req, res) {
+    const tasks = await TaskRepository.list(req.params.id);
+    res.json(tasks);
+  })
+);
+
+router.post(
+  '/:id/tasks',
+  authenticated,
+  validateTask,
+  handleValidationErrors,
+  asyncHandler(async function (req, res, next) {
+    const id = await TaskRepository.create(req.body, req.params.id, req.user.id);
+      return res.redirect(`${req.baseUrl}/${id}`)
+}));
 
 module.exports = router;

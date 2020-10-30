@@ -12,7 +12,7 @@ app.use(cors({ origin: true }));
 app.use(helmet({ hsts: false }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-// app.use(express.static(path.join(__dirname, 'public')));     (if needed)
+app.use(express.static(path.join(__dirname, 'public')));  
 
 app.use(indexRouter);
 

@@ -1,11 +1,12 @@
 const express = require('express');
 const { checkSchema } = require('express-validator');
 const ProjectRepository = require('../../db/project-repository');
+const TaskRepository = require("../../db/task-repository");
 const { User, Project } = require('../../db/models');
 const { asyncHandler, hashPassword } = require('../../utils');
 const { handleValidationErrors, validateUser, validationResult, userNotFoundError, validateEmailAndPassword } = require('../../validations');
 const { authenticated, generateToken } = require('./security-utils');
-console.log(ProjectRepository);
+
 const router = express.Router();
 
 router.get(
@@ -120,6 +121,16 @@ router.get(
   asyncHandler(async function(req, res) {
     const projects = await ProjectRepository.list(req.params.id);
     res.json(projects);
+  })
+);
+
+// Get all tasks assigned to a user
+router.get(
+  '/:id(\\d+)/tasks',
+  // authenticated,
+  asyncHandler(async function (req, res, next) {
+    const task = await TaskRepository.listTasks(req.params.id);
+      res.json(task);
   })
 );
 

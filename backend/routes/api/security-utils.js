@@ -7,7 +7,8 @@ const UserRepository = require('../../db/user-repository');
 
 function generateToken(user) {
   const data = {
-    name: user.username,
+    name: user.fullName,
+    email: user.email,
     //TODO Add any data you want to keep in the JWT here
   };
   const jwtid = uuid();

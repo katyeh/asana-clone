@@ -105,6 +105,22 @@ const projectNotFoundError = id => {
   return err;
 };
 
+const validateTask = [
+  check("name")
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a valid name.')
+    .isLength({ max: 55 })
+    .withMessage("Name cannot be over 55 characters long."),
+];
+
+const taskNotFoundError = id => {
+  const err = new Error('Task not found.');
+  err.errors = [`Task with id of ${id} could not be found.`];
+  err.title = 'Task not found';
+  err.status = 404;
+  return err;
+};
+
 module.exports = {
   validationResult,
   handleValidationErrors,
@@ -113,4 +129,6 @@ module.exports = {
   userNotFoundError,
   validateProject,
   projectNotFoundError,
+  validateTask,
+  taskNotFoundError,
 };

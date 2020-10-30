@@ -10,8 +10,8 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Users', [
       {
-        fullName: "Demo User",
-        email: "demo@example.com",
+        fullName: "John Doe",
+        email: "john@doe.com",
         picUrl: "https://media.fromthegrapevine.com/assets/images/2017/1/jeff-bridges-dude.jpg.839x0_q71_crop-scale.jpg",
         hashedPassword: createPassword(),
         createdAt: new Date(),

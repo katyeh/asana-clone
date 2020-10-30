@@ -11,7 +11,7 @@ module.exports = {
       },
       {
         name: "Kathleen's Team",
-        creatorId: 2,
+        creatorId: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       },
