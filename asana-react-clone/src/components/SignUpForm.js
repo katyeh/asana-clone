@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TextField, Button, Grid, Box } from "@material-ui/core";
 
 import { useDispatch } from 'react-redux';
-import { signUp } from '../store/authentication';
+import { signUp } from '../store/actions/authentication';
 import { NavLink } from 'react-router-dom';
 
 const SignUpForm = () => {
@@ -40,7 +40,7 @@ const SignUpForm = () => {
               p={1}
               style={{ width: '20rem', height: 'auto', padding: '2rem' }}
             >
-              <Grid container container spacing={2} direction="column" alignItems="center">
+              <Grid container spacing={2} direction="column" alignItems="center">
                 <Grid item>
                   <div>
                     <h1>Sign Up</h1>

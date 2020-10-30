@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { login } from '../store/authentication';
+import { login } from '../store/actions/authentication';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,7 +59,6 @@ const LoginForm = (props) => {
                 </div>
               </Grid>
               <Grid item>
-                {/* <br /> */}
                 <TextField id="outlined-basic" label="Email address" variant="outlined"
                   type='text'
                   placeholder='Email'
@@ -68,7 +67,6 @@ const LoginForm = (props) => {
                   required
                   />
               </Grid>
-              {/* <br /> */}
               <Grid item>
                 <TextField id="outlined-basic" label="Password" variant="outlined"
                   type='password'

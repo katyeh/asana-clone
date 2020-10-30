@@ -35,6 +35,15 @@
 | createdAt | timestamp | not null |
 | updatedAt | timestamp | not null |
 
+## userProjects
+| attribute name | data type | details |
+| - | - | - |
+| id | integer | not null, primary key |
+| userId | integer | not null, foreign key |
+| projectId | integer | not null, foreign key |
+| createdAt | timestamp | not null |
+| updatedAt | timestamp | not null |
+
 ## tasks
 
 | attribute name | data type | details |

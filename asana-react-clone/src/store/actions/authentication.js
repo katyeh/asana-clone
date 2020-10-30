@@ -1,17 +1,18 @@
-import { baseUrl } from '../config';
+import { baseUrl } from '../../config';
 
-// TODO: Change APP NAME
-const TOKEN_KEY = '(APP NAME)/authentication/token';
-const SET_TOKEN = '(APP NAME)/authentication/SET_TOKEN';
-const REMOVE_TOKEN = '(APP NAME)/authentication/REMOVE_TOKEN';
+const TOKEN_KEY = 'asana/authentication/token';
+const SET_TOKEN = 'asana/authentication/SET_TOKEN';
+const REMOVE_TOKEN = 'asana/authentication/REMOVE_TOKEN';
 
 export const removeToken = (token) => ({ type: REMOVE_TOKEN });
 export const setToken = (token) => ({ type: SET_TOKEN, token });
 
 export const loadToken = () => async (dispatch) => {
   const token = window.localStorage.getItem(TOKEN_KEY);
+  const userId = window.localStorage.getItem("USER_ID");
+  const loadUser = { token: token, user: { id: userId } };
   if (token) {
-    dispatch(setToken(token));
+    dispatch(setToken(loadUser));
   }
 };
 
@@ -36,9 +37,10 @@ export const login = (email, password) => async (dispatch) => {
   });
 
   if (response.ok) {
-    const { token } = await response.json();
-    window.localStorage.setItem(TOKEN_KEY, token);
-    dispatch(setToken(token));
+    const user = await response.json();
+    window.localStorage.setItem(TOKEN_KEY, user.token);
+    window.localStorage.setItem("USER_ID", user.user.id);
+    dispatch(setToken(user));
   }
 };
 
@@ -62,7 +64,8 @@ export default function reducer(state = {}, action) {
     case SET_TOKEN: {
       return {
         ...state,
-        token: action.token,
+        token: action.token.token,
+        userId: action.token.user.id
       };
     }
 
