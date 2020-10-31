@@ -16,6 +16,6 @@ export const getOneProject = (id) => async (dispatch, getState) => {
 
   if (response.ok) {
     const current = await response.json();
-    dispatch(setCurrent(current));
+    dispatch(setCurrent(current)); // { project, tasks }
   }
 };

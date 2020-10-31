@@ -5,6 +5,7 @@ import project from './reducers/project';
 import authentication from './actions/authentication';
 import ui from './reducers/ui';
 import currentProject from './reducers/current-proj';
+import task from './reducers/task';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -13,6 +14,7 @@ const reducer = combineReducers({
   authentication,
   project,
   currentProject,
+  task,
   ui,
 });
 

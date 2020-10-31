@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { createProject } from "../../store/actions/project";
 import Modal from "react-modal";
-import { Grid, TextField } from "@material-ui/core"
+import { Box, Grid, TextField } from "@material-ui/core"
 import './modal.css'
-// import getpokemontypes (tasks??)
-import { hideForm } from "../../store/actions/ui";
 
 const modalStyles = {
   overlay: {
@@ -28,13 +27,16 @@ const ProjectForm = ({ createProject, hideForm }) => {
   const [description, setDescription] = useState("");
   const [modalIsOpen, setIsOpen] = useState(false);
 
+  const history = useHistory();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const payload = {
       name,
       description,
     };
-    createProject(payload);
+    createProject(payload)
+      .then(() => setIsOpen(false));
   };
 
   const updateProperty = (callback) => (e) => {
@@ -47,7 +49,20 @@ const ProjectForm = ({ createProject, hideForm }) => {
 
   return (
     <div>
-      <button onClick={() => setIsOpen(true)}>+</button>
+      <Box
+        className="project-header"
+        display="flex"
+        justifyContent="space-between"
+        width="15vw"
+        alignItems="center"
+      >
+        <Box>
+          <h3>Projects</h3>
+        </Box>
+        <Box>
+          <button onClick={() => setIsOpen(true)}>+</button>
+        </Box>
+      </Box>
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={() => setIsOpen(false)}
@@ -88,7 +103,6 @@ const ProjectFormContainer = () => {
   return (
     <ProjectForm
       createProject={(project) => dispatch(createProject(project))}
-      hideForm={() => dispatch(hideForm())}
     />
   );
 };

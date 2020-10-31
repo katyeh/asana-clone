@@ -1,16 +1,15 @@
 import { baseUrl } from "../../config";
 import { hideForm } from "./ui"; // TODO: Create hideForm
 
-export const LOAD = "asana/project/LOAD";
+export const LOAD = "asana/task/LOAD";
 
 export const load = (list) => ({ type: LOAD, list });
 
-// TODO: Figure out where is passing data from
-export const createProject = (data) => async (dispatch, getState) => {
+export const createTask = (data, projectId) => async(dispatch, getState) => {
   const {
     authentication: { token },
   } = getState();
-  const response = await fetch(`${baseUrl}/projects`, {
+  const response = await fetch(`${baseUrl}/project/${projectId}/task`, {
     method: "post",
     headers: {
       "Content-Type": "application/json",
@@ -21,15 +20,15 @@ export const createProject = (data) => async (dispatch, getState) => {
 
   if (response.ok) {
     dispatch(hideForm());
-    dispatch(getProject());
+    dispatch(getTask());
   }
 };
 
-export const getProject = (userId) => async (dispatch, getState) => {
+export const getTask = (projectId) => async(dispatch, getState) => {
   const {
     authentication: { token },
   } = getState();
-  const response = await fetch(`${baseUrl}/users/${userId}/projects`, {
+  const response = await fetch(`${baseUrl}/projects/${projectId}/tasks`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

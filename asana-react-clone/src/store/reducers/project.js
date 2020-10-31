@@ -17,7 +17,7 @@ export default function reducer(state = {}, action) {
     case SET_CURRENT: {
       return {
         ...state,
-        [action.current.id]: action.current,
+        [action.current.project.id]: action.current.project,
       };
     }
 

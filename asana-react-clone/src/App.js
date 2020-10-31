@@ -10,11 +10,12 @@ import Navigation from './components/Navigation';
 import { loadToken } from './store/actions/authentication';
 import { ProtectedRoute, PrivateRoute } from "./util/route-util";
 
-const App = ({ needLogin, loadToekn}) => {
+const App = ({ needLogin, loadToken}) => {
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
+
   useEffect(() => {
-    dispatch(loadToken())
+    loadToken()
       .then(() => setLoaded(true));
   }, []);
 
@@ -35,6 +36,7 @@ const App = ({ needLogin, loadToekn}) => {
       <ProtectedRoute
         path="/signup"
         exact={true}
+        needLogin={needLogin}
         component={SignUpForm}
       />
       <PrivateRoute
