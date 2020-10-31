@@ -5,11 +5,11 @@ import TaskForm from "../projects/ProjectForm";
 import { showForm } from "../../store/actions/ui";
 import { getTask } from "../../store/actions/task";
 import { merge } from 'lodash/merge';
-import { ListItem } from '@material-ui/core';
+import { ListItem, Checkbox } from '@material-ui/core';
 
 const Task = ({ tasks }) => {
   const dispatch = useDispatch();
-
+  const [checked, setChecked] = useState(true);
   // useEffect(() => {
   //   dispatch(getTask());
   // }, []);

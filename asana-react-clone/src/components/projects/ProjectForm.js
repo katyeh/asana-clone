@@ -53,10 +53,11 @@ const ProjectForm = ({ createProject }) => {
         className="project-header"
         display="flex"
         justifyContent="space-between"
-        width="15vw"
+        margin="0 10px"
         alignItems="center"
       >
-        <Box>
+        <Box
+        >
           <h3>Projects</h3>
         </Box>
         <Box>

@@ -9,14 +9,6 @@ import ProjectDetail from "../projects/ProjectDetail";
 import { Box, ListItem } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles'
 
-// const useStyles = makeStyles({
-//   boxItem: {
-//     '&:hover': {
-//       backgroundColor: 'darkGray'
-//     }
-//   },
-// })
-
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -57,12 +49,12 @@ const ProjectBrowser = ({ formVisible, showForm }) => {
       <Box
         display="flex"
         flexDirection="column"
+        backgroundColor='black'
       >
         {projects.map((project) => {
           return (
             <Box item
             className={ `${classes.boxItem}` }
-            width="15vw"
             >
               <ListItem
                 selected={selectedIndex === project.id}
