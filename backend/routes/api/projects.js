@@ -15,9 +15,9 @@ router.get(
   '/:id(\\d+)',
   authenticated,
   asyncHandler(async function (req, res, next) {
-    const project = await ProjectRepository.one(req.params.id);
+    const { projectInfo: project, tasks } = await ProjectRepository.one(req.params.id);
     if (project) {
-      res.json(project);
+      res.json({project, tasks});
     } else {
       next(projectNotFoundError);
     }

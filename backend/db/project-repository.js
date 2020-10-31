@@ -25,23 +25,31 @@ async function one(id) {
     include: ["tasks"],
   });
 
-  return {
+  const tasksIds = [];
+  const tasks = [];
+
+  project.tasks.forEach((task) => {
+    tasksIds.push(task.id);
+    tasks.push({
+      id: task.id,
+      taskName: task.name,
+      taskDescrip: task.description,
+      deadline: task.deadline,
+      projectId: task.projectId,
+      assigneeId: task.assigneeId,
+      creatorId: task.creatorId,
+      completed: task.completed,
+    });
+  });
+  const projectInfo = {
+    id: project.id,
     name: project.name,
     description: project.description,
     creator: project.creatorId,
     team: project.teamId,
-    tasks: project.tasks.map((task) => {
-      return {
-        taskName: task.name,
-        taskDescrip: task.description,
-        deadline: task.deadline,
-        projectId: task.projectId,
-        assigneeId: task.assigneeId,
-        creatorId: task.creatorId,
-        completed: task.completed,
-      }
-    })
+    tasksIds
   }
+  return { projectInfo, tasks }
 };
 
 module.exports = {
