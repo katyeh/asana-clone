@@ -22,7 +22,7 @@ const modalStyles = {
 
 Modal.setAppElement('#root');
 
-const ProjectForm = ({ createProject, hideForm }) => {
+const ProjectForm = ({ createProject }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [modalIsOpen, setIsOpen] = useState(false);

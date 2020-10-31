@@ -4,6 +4,8 @@ import { NavLink, Redirect, Route, Switch, useParams } from "react-router-dom";
 import TaskForm from "../projects/ProjectForm";
 import { showForm } from "../../store/actions/ui";
 import { getTask } from "../../store/actions/task";
+import { merge } from 'lodash/merge';
+import { ListItem } from '@material-ui/core';
 
 const Task = ({ tasks }) => {
   const dispatch = useDispatch();
@@ -12,20 +14,33 @@ const Task = ({ tasks }) => {
   //   dispatch(getTask());
   // }, []);
 
+  // function toggleComplete(e){
+  //   e.preventDefault();
+  //   const taskId = parseInt(e.currentTarget.id);
+  //   const currentStatus = state[taskId].completed;
+  //   const update = { id: taskId, completed: !currentStatus };
+  //   const newState = merge({}, state, { [taskId]: { completed: !currentStatus }}
+  //   );
+
+  //   props.updateTask(update);
+  // }
+
   return (
     <main>
       <nav>
         {tasks.map((task) => {
           return (
-            <li
+            <ListItem
               className='task'
               id={ task.id }
-              // key={i}
-            >
-  {/*             <button id={ task.id } onClick={toggleComplete}>
+              key={ task.id }
+              style={{ textDecoration: 'none' }}
+              >
+              {task.taskName}
+           {/*    <button id={ task.id } onClick={toggleComplete}>
                 <div className={ task.completed ?
                   'checkmark-done' : 'checkmark-not-done' }>
-                </div>
+                </div>}
               </button> */}
 
             {/*   <input
@@ -37,9 +52,9 @@ const Task = ({ tasks }) => {
                 onChange={ e => handleInput(e, 'title') }
                 value={ title ? title : '' }>
               </input> */}
-            </li>
+            </ListItem>
           )
-        })};
+        })}
       </nav>
     </main>
   )

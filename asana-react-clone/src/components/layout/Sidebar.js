@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { NavLink, Redirect, Switch, Route } from "react-router-dom";
+import { NavLink, Redirect, Switch, Route, Link } from "react-router-dom";
 import ProjectForm from "../projects/ProjectForm";
 import Fab from "../Sidebar/Fab";
 import { showForm } from "../../store/actions/ui";
@@ -9,22 +9,37 @@ import ProjectDetail from "../projects/ProjectDetail";
 import { Box, ListItem } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles'
 
-const useStyles = makeStyles({
+// const useStyles = makeStyles({
+//   boxItem: {
+//     '&:hover': {
+//       backgroundColor: 'darkGray'
+//     }
+//   },
+// })
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+  },
   boxItem: {
     '&:hover': {
       backgroundColor: 'darkGray'
     }
   },
-  active: {
-    backgroundColor: 'blue'
-  }
-})
+}));
 
 const ProjectBrowser = ({ formVisible, showForm }) => {
   const classes = useStyles();
   const id = useSelector(state => state.authentication.userId);
   const projects = useSelector(state => Object.values(state.project))
   const dispatch = useDispatch();
+  const [selectedIndex, setSelectedIndex] = React.useState(1);
+
+  const handleListItemClick = (event, index) => {
+    setSelectedIndex(index);
+  };
 
   useEffect(() => {
     dispatch(getProject(id));
@@ -50,13 +65,18 @@ const ProjectBrowser = ({ formVisible, showForm }) => {
             width="15vw"
             >
               <ListItem
-              // TODO: Style this
+                selected={selectedIndex === project.id}
+                onClick={(e) => handleListItemClick(e, project.id)}
+                component={Link}
+                style={{ color: 'black' }}
+                to={`/project/${project.id}`}
+                value={project.name}
               >
-                <NavLink
+           {/*      <NavLink
                 key={project.name}
                 to={`/project/${project.id}`}
                 style={{ textDecoration: 'none', color: 'black', height: '10vw', }}
-                >
+                > */}
                   <div
                     className={
                       projectId === project.id
@@ -71,7 +91,7 @@ const ProjectBrowser = ({ formVisible, showForm }) => {
                     </div> */}
                   </div>
                 </div>
-              </NavLink>
+              {/* </NavLink> */}
             </ListItem>
           </Box>
           );
