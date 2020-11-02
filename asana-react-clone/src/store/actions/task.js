@@ -9,7 +9,7 @@ export const createTask = (data, projectId) => async(dispatch, getState) => {
   const {
     authentication: { token },
   } = getState();
-  const response = await fetch(`${baseUrl}/project/${projectId}/task`, {
+  const response = await fetch(`${baseUrl}/projects/${projectId}/tasks`, {
     method: "post",
     headers: {
       "Content-Type": "application/json",

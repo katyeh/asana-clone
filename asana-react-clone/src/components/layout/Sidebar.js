@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink, Redirect, Switch, Route, Link } from "react-router-dom";
 import ProjectForm from "../projects/ProjectForm";
-import Fab from "../Sidebar/Fab";
 import { showForm } from "../../store/actions/ui";
 import { getProject } from "../../store/actions/project";
 import ProjectDetail from "../projects/ProjectDetail";
@@ -64,11 +63,6 @@ const ProjectBrowser = ({ formVisible, showForm }) => {
                 to={`/project/${project.id}`}
                 value={project.name}
               >
-           {/*      <NavLink
-                key={project.name}
-                to={`/project/${project.id}`}
-                style={{ textDecoration: 'none', color: 'black', height: '10vw', }}
-                > */}
                   <div
                     className={
                       projectId === project.id
@@ -78,12 +72,9 @@ const ProjectBrowser = ({ formVisible, showForm }) => {
                   >
                   <div>
                     <div className="primary-text">{project.name}</div>
-                    {/* <div className="secondary-text">
-                      {new Date(project.updatedAt).toDateString()}
-                    </div> */}
+
                   </div>
                 </div>
-              {/* </NavLink> */}
             </ListItem>
           </Box>
           );
@@ -104,14 +95,9 @@ const ProjectBrowser = ({ formVisible, showForm }) => {
 };
 
 const ProjectBrowserContainer = () => {
-  // const formVisible = useSelector((state) => state.ui.formVisible);
-  // const Project = useSelector((state) => Object.values(state.Project2)); */
   const dispatch = useDispatch();
   return (
     <ProjectBrowser
-      // project={project}
-      // formVisible={formVisible}
-      // getProject={() => dispatch(getProject())}
       showForm={() => dispatch(showForm())}
     />
   );
