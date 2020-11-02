@@ -1,5 +1,5 @@
 import merge from 'lodash/merge';
-import { LOAD } from "../actions/project";
+import { LOAD, ADDPROJECT } from "../actions/project";
 import { SET_CURRENT } from "../actions/current-proj";
 
 export default function reducer(state = {}, action) {
@@ -12,6 +12,12 @@ export default function reducer(state = {}, action) {
       return {
         ...state,
         ...action.list.Projects
+      };
+    }
+    case ADDPROJECT: {
+      return {
+        ...state,
+        [action.project.id]: action.project,
       };
     }
     case SET_CURRENT: {

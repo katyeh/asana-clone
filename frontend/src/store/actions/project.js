@@ -2,8 +2,16 @@ import { baseUrl } from "../../config";
 import { hideForm } from "./ui"; // TODO: Create hideForm
 
 export const LOAD = "asana/project/LOAD";
+export const ADDPROJECT = "ADDPROJECT";
 
 export const load = (list) => ({ type: LOAD, list });
+
+export const addProject = (project) => {
+  return {
+    type: ADDPROJECT,
+    project
+  };
+};
 
 // TODO: Figure out where is passing data from
 export const createProject = (data) => async (dispatch, getState) => {
@@ -21,7 +29,9 @@ export const createProject = (data) => async (dispatch, getState) => {
 
   if (response.ok) {
     dispatch(hideForm());
+    const project = await response.json()
     dispatch(getProject());
+    dispatch(addProject(project));
   }
 };
 
