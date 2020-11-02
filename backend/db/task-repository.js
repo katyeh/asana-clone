@@ -13,7 +13,7 @@ async function create(content, projectId, userId) {
     description,
     deadline,
     projectId: projectId,
-    assigneeId,
+    assigneeId: 3,
     creatorId: userId,
     completed,
   })

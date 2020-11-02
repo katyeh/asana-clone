@@ -26,11 +26,11 @@ router.get(
 
 router.post(
   '/',
-  authenticated,
+  // authenticated,
   validateProject,
   handleValidationErrors,
   asyncHandler(async function (req, res, next) {
-    const id = await ProjectRepository.create(req.body, req.user.id);
+    const id = await ProjectRepository.create(req.body, req.user.id)
       return res.redirect(`${req.baseUrl}/${id}`)
   }));
 

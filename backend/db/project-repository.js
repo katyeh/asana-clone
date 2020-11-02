@@ -1,4 +1,4 @@
-const { Project, Task, User } = require('./models');
+const { Project, Task, User, UserProjects } = require('./models');
 
 async function create(content, userId) {
   const { name, description } = content
