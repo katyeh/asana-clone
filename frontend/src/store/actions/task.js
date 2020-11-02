@@ -5,11 +5,11 @@ export const LOAD = "asana/task/LOAD";
 
 export const load = (list) => ({ type: LOAD, list });
 
-export const createTask = (data, projectId) => async(dispatch, getState) => {
+export const createTask = (data, id) => async(dispatch, getState) => {
   const {
     authentication: { token },
   } = getState();
-  const response = await fetch(`${baseUrl}/projects/${projectId}/tasks`, {
+  const response = await fetch(`${baseUrl}/projects/${id}/tasks`, {
     method: "post",
     headers: {
       "Content-Type": "application/json",

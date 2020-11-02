@@ -7,7 +7,6 @@
 - express-bearer-token
 - per-env
 - sequelize@^5
-- pg
 
 ## Dev-dependencies
 - nodemon

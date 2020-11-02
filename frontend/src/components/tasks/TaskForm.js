@@ -2,13 +2,16 @@ import React from 'react';
 import { TextField } from '@material-ui/core';
 import { createTask } from "../../store/actions/task"
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 const TaskForm = ({ createTask }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [deadline, setDeadline] = useState("");
   const [completed, setCompleted]  = useState(false);
+  // const { projectId } = useParams();
+  const { id } = useParams();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,7 +21,8 @@ const TaskForm = ({ createTask }) => {
       deadline,
       completed,
     };
-    createTask(payload)
+    console.log('id', id)
+    createTask(payload, id)
   };
 
   const updateProperty = (callback) => (e) => {
