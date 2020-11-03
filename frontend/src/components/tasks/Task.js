@@ -28,10 +28,16 @@ const useStyles = makeStyles({
 
 const Task = ({ tasks, formVisible }) => {
   const dispatch = useDispatch();
-  const [checked, setChecked] = useState(true);
+  const [checked, setChecked] = useState(false);
   const [completed, setCompleted] = useState(false);
+  // const tasks = useSelector(state => Object.values(state.task))
   const [isOpen, setIsOpen] = useState(false);
   const classes = useStyles();
+  const { id } = useParams();
+
+  useEffect(() => {
+    dispatch(getTask(id));
+  }, [id]);
 
   const toggleDrawer = () => {
     setIsOpen(true)
@@ -39,7 +45,7 @@ const Task = ({ tasks, formVisible }) => {
 
   const handleChange = (e) => {
     setChecked({[e.target.name]: e.target.checked});
-    setCompleted(true); // TODO: Make this work
+    // setCompleted({completed: true}); // TODO: Make this work
   };
 
   // function toggleComplete(e){
@@ -64,14 +70,14 @@ const Task = ({ tasks, formVisible }) => {
               id={ task.id }
               key={ task.id }
               style={{ textDecoration: 'none' }}
-              onClick={(e) => setIsOpen(true)}
+              // onClick={(e) => setIsOpen(true)}
               // to={`/task/${task.id}`}
               >
                 <Checkbox
                   // checked={checked === setCompleted}
                   value={task.task}
-                  onChange={ handleChange }
-                  // onClick={setCompleted}
+                  // onChange={ handleChange }
+                  onClick={() => setCompleted({completed: true})}
                   name={ task.id }
                   inputProps={{ 'aria-label': 'primary checkbox' }}
                 />
@@ -118,18 +124,11 @@ const Task = ({ tasks, formVisible }) => {
 const TaskContainer = ({ project }) => {
   const formVisible = useSelector((state) => state.ui.formVisible);
   const tasks = useSelector((state) => project.tasksIds.map((taskId) => state.task[taskId] ));
-  /* const [isOpen, setIsOpen] = useState(false);
-  const classes = useStyles();
-
-  const toggleDrawer = () => {
-    setIsOpen(true)
-  } */
+  const dispatch = useDispatch()
 
   return (
     <div className="tasks">
       <div id='header'>
-        {/* <button onClick={() => setIsOpen(true)}>Add Task</button> */}
-
       </div>
       <Task
         tasks={tasks}

@@ -4,14 +4,19 @@ import { createTask } from "../../store/actions/task"
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const TaskForm = ({ createTask }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [deadline, setDeadline] = useState("");
   const [completed, setCompleted]  = useState(false);
-  // const { projectId } = useParams();
   const { id } = useParams();
+  // useEffect(() => {
+  //   createTask(id);
+  // }, [id]);
+  // const id = useSelector(state => state.task.id);
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -74,7 +79,7 @@ const TaskFormContainer = () => {
 
   return (
     <TaskForm
-      createTask={(task) => dispatch(createTask(task))}
+      createTask={(task, id) => dispatch(createTask(task, id))}
     />
   );
 };

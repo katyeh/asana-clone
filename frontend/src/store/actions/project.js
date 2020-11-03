@@ -46,7 +46,7 @@ export const getProject = (userId) => async (dispatch, getState) => {
   });
 
   if (response.ok) {
-    const list = await response.json();
-    dispatch(load(list));
+    const project = await response.json();
+    dispatch(load(project));
   }
 };

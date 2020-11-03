@@ -1,5 +1,5 @@
 import merge from 'lodash/merge';
-import { LOAD } from "../actions/task";
+import { LOAD, ADDTASK } from "../actions/task";
 import { SET_CURRENT } from "../actions/current-proj";
 
 export default function reducer(state = {}, action) {
@@ -14,6 +14,12 @@ export default function reducer(state = {}, action) {
         ...action.list.Tasks
       }; */
     // }
+    case ADDTASK: {
+      return {
+        ...state,
+        [action.task.id]: action.task,
+      }
+    }
     case SET_CURRENT: {
       const task = action.current.tasks.map((task) => ({ [task.id]: task }));
       return merge({}, state, ...task)
